@@ -6,6 +6,7 @@ var exeq = require('exeq')
 
 //  Input variables
 var ARGS = core.getInput('args')
+var CRED_ARGS = core.getInput('cred-args')
 
 //  Installs Serverless and specified plugins
 async function installServerlessAndPlugins() {
@@ -22,7 +23,7 @@ async function runServerlessDeploy() {
   await exeq(
     `echo Running sls deploy ${ARGS}...`,
     `if [ ${process.env.AWS_ACCESS_KEY_ID} ] && [ ${process.env.AWS_SECRET_ACCESS_KEY} ]; then
-      sls config credentials --provider aws --key ${process.env.AWS_ACCESS_KEY_ID} --secret ${process.env.AWS_SECRET_ACCESS_KEY} ${ARGS}
+      sls config credentials --provider aws --key ${process.env.AWS_ACCESS_KEY_ID} --secret ${process.env.AWS_SECRET_ACCESS_KEY} ${CRED_ARGS}
     fi`,
     `sls deploy ${ARGS}`
   )
